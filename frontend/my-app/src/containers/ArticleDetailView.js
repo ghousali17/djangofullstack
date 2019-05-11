@@ -1,7 +1,7 @@
 import React from 'react';
-
+import CustomForm from '../components/Form';
 import Axious from 'axios';
-import {Card} from 'antd';
+import {Card, Button} from 'antd';
 
 
 class ArticleDetail extends React.Component{
@@ -21,21 +21,41 @@ class ArticleDetail extends React.Component{
 			this.setState({
 				article:res.data
 			});
+			
 			console.log(res.data);
 		})
 
 
 	}
 	
+	handleDelete = (event) =>{
+				//this matches the primary key in our base routes
+		const articleID = this.props.match.params.articleID;
+		//This is a promise which is a reponse. 
+		Axious.get(`http://127.0.0.1:8000/api/${articleID}/`);
+		this.props.history.push(`/`);
+
+
+	}
 	render(){
 		return(
-			<Card tite={this.state.article.title}>
+			<div>
+			<Card title={this.state.article.title}>
 			<p>
-				{this.state.article.content}
-				
+			{this.state.article.content}
 			</p>
-				
 			</Card>
+			<CustomForm requestType='put' 
+			articleID={this.props.match.params.articleID} 
+			btnText="Update"
+			/>
+
+			<form onSubmit={this.handleDelete}>
+				<Button type="danger" htmlType="submit" >
+					Delete
+				</Button>
+			</form>
+			</div>
 			);
 	}
 }
