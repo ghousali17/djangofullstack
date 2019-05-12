@@ -16,7 +16,7 @@ class ArticleDetail extends React.Component{
 		//this matches the primary key in our base routes
 		const articleID = this.props.match.params.articleID;
 		//This is a promise which is a reponse. 
-		Axious.get(`http://127.0.0.1:8000/api/${articleID}`)
+		Axious.get(`http://127.0.0.1:8000/api/${articleID}/`)
 		.then(res =>{
 			this.setState({
 				article:res.data
@@ -32,7 +32,7 @@ class ArticleDetail extends React.Component{
 				//this matches the primary key in our base routes
 		const articleID = this.props.match.params.articleID;
 		//This is a promise which is a reponse. 
-		Axious.get(`http://127.0.0.1:8000/api/${articleID}/`);
+		Axious.delete(`http://127.0.0.1:8000/api/${articleID}/`);
 		this.props.history.push(`/`);
 
 
